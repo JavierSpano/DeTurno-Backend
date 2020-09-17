@@ -3,24 +3,24 @@ package com.javierfspano.deturno.entities.respuestamapquest;
 
 public class Coordenadas {
 
-	private String lat;
-	
-	private String lng;
+    private String lat;
 
-	public String getLat() {
-		return lat;
-	}
+    private String lng;
 
-	public void setLat(String lat) {
-		this.lat = lat;
-	}
+    public String getLat() {
+        return lat;
+    }
 
-	public String getLng() {
-		return lng;
-	}
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
 
-	public void setLng(String lng) {
-		this.lng = lng;
-	}
-	
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
+    }
+
 }

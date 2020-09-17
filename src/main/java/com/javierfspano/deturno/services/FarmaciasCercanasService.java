@@ -12,11 +12,11 @@ import java.util.List;
 @Service
 public class FarmaciasCercanasService {
 
-    private GeoCodingService geoCodingService;
+    private final GeoCodingService geoCodingService;
 
-    private CoordenadasDeFarmaciasRepository coordenadasDeFarmaciasRepository;
+    private final CoordenadasDeFarmaciasRepository coordenadasDeFarmaciasRepository;
 
-    private FarmaciasRepository farmaciasRepository;
+    private final FarmaciasRepository farmaciasRepository;
 
     public FarmaciasCercanasService(GeoCodingService geoCodingService, CoordenadasDeFarmaciasRepository coordenadasDeFarmaciasRepository, FarmaciasRepository farmaciasRepository) {
         this.geoCodingService = geoCodingService;
@@ -24,14 +24,14 @@ public class FarmaciasCercanasService {
         this.farmaciasRepository = farmaciasRepository;
     }
 
-    public FarmaciasCercanas getFarmaciasCercanas(String direccion){
+    public FarmaciasCercanas getFarmaciasCercanas(String direccion) {
         Coordenadas coordenadas = geoCodingService.getCoordenadas(direccion);
 
         List<String> ids = coordenadasDeFarmaciasRepository.getIdCercanos();
 
         List<Farmacias> farmacias = farmaciasRepository.get(ids);
 
-        return new FarmaciasCercanas(coordenadas,farmacias);
+        return new FarmaciasCercanas(coordenadas, farmacias);
     }
 
 }

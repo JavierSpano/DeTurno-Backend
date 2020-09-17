@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class DeTurnoApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(DeTurnoApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(DeTurnoApplication.class, args);
+    }
 
 }

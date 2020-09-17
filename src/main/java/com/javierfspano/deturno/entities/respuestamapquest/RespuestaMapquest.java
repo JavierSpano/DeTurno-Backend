@@ -4,14 +4,14 @@ import java.util.List;
 
 public class RespuestaMapquest {
 
-	private List<ResultadoMapquest> results;
+    private List<ResultadoMapquest> results;
 
-	public List<ResultadoMapquest> getResults() {
-		return results;
-	}
+    public List<ResultadoMapquest> getResults() {
+        return results;
+    }
 
-	public void setResults(List<ResultadoMapquest> results) {
-		this.results = results;
-	}
+    public void setResults(List<ResultadoMapquest> results) {
+        this.results = results;
+    }
 
 }
