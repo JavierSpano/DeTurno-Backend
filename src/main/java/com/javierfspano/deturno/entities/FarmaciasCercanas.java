@@ -10,12 +10,12 @@ public class FarmaciasCercanas {
     @JsonProperty("centro_del_mapa")
     private Coordenadas centroDelMapa;
 
-    private List<Farmacias> farmacias;
+    private List<Farmacia> farmacias;
 
     public FarmaciasCercanas() {
     }
 
-    public FarmaciasCercanas(Coordenadas centroDelMapa, List<Farmacias> farmacias) {
+    public FarmaciasCercanas(Coordenadas centroDelMapa, List<Farmacia> farmacias) {
         this.centroDelMapa = centroDelMapa;
         this.farmacias = farmacias;
     }
@@ -28,11 +28,11 @@ public class FarmaciasCercanas {
         this.centroDelMapa = centroDelMapa;
     }
 
-    public List<Farmacias> getFarmacias() {
+    public List<Farmacia> getFarmacias() {
         return farmacias;
     }
 
-    public void setFarmacias(List<Farmacias> farmacias) {
+    public void setFarmacias(List<Farmacia> farmacias) {
         this.farmacias = farmacias;
     }
 }

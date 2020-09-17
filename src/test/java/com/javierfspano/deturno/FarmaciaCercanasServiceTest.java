@@ -1,22 +1,25 @@
 package com.javierfspano.deturno;
 
 import com.javierfspano.deturno.entities.FarmaciasCercanas;
+import com.javierfspano.deturno.exceptions.MapquestApiException;
 import com.javierfspano.deturno.repositories.CoordenadasDeFarmaciasRepository;
 import com.javierfspano.deturno.repositories.FarmaciasRepository;
 import com.javierfspano.deturno.services.FarmaciasCercanasService;
 import com.javierfspano.deturno.services.GeoCodingService;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.event.annotation.BeforeTestExecution;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@SpringBootTest
-class FarmaciasCercanasServiceTest {
+
+class FarmaciaCercanasServiceTest {
 
 	@Mock
 	private GeoCodingService geoCodingService;
@@ -29,14 +32,14 @@ class FarmaciasCercanasServiceTest {
 
 	private FarmaciasCercanasService farmaciasCercanasService;
 
-	@BeforeAll
+	@BeforeEach
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
 		farmaciasCercanasService = new FarmaciasCercanasService(geoCodingService, coordenadasDeFarmaciasRepository, farmaciasRepository);
 	}
 
 	@Test
-	public void testFarmaciasCercanasServiceUsaGeocoding() {
+	public void testFarmaciasCercanasServiceUsaGeocoding() throws MapquestApiException {
 		String direccion = "sarasa";
 		farmaciasCercanasService.getFarmaciasCercanas(direccion);
 		Mockito.verify(geoCodingService).getCoordenadas(direccion);
@@ -44,7 +47,7 @@ class FarmaciasCercanasServiceTest {
 
 
 	@Test
-	public void testFarmaciasCercanasServiceNoRetornaNulo() {
+	public void testFarmaciasCercanasServiceNoRetornaNulo() throws MapquestApiException {
 		String direccion = "sarasa";
 		FarmaciasCercanas farmaciasCercanas = farmaciasCercanasService.getFarmaciasCercanas(direccion);
 		assertNotNull(farmaciasCercanas);

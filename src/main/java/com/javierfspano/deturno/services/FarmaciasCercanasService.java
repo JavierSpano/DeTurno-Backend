@@ -1,6 +1,6 @@
 package com.javierfspano.deturno.services;
 
-import com.javierfspano.deturno.entities.Farmacias;
+import com.javierfspano.deturno.entities.Farmacia;
 import com.javierfspano.deturno.entities.FarmaciasCercanas;
 import com.javierfspano.deturno.entities.respuestamapquest.Coordenadas;
 import com.javierfspano.deturno.exceptions.MapquestApiException;
@@ -30,7 +30,7 @@ public class FarmaciasCercanasService {
 
         List<String> ids = coordenadasDeFarmaciasRepository.getIdsCercanos(coordenadas);
 
-        List<Farmacias> farmacias = farmaciasRepository.get(ids);
+        List<Farmacia> farmacias = farmaciasRepository.get(ids);
 
         return new FarmaciasCercanas(coordenadas, farmacias);
     }

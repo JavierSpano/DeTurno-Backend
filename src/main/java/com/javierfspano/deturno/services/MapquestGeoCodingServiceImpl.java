@@ -21,10 +21,9 @@ public class MapquestGeoCodingServiceImpl implements GeoCodingService {
     public Coordenadas getCoordenadas(String direccion) throws MapquestApiException {
         MapquestCredentials credentials = proveedorDeCredenciales.obtenerCredencialesDeMapquest();
 
-        RespuestaMapquest json = new RespuestaMapquest();
         RestTemplate restTemplate = new RestTemplate();
         String url = credentials.getUrl() + "?key=" + credentials.getKey() + "&location=" + direccion;
-        json = restTemplate.getForObject(url, RespuestaMapquest.class);
+        RespuestaMapquest json = restTemplate.getForObject(url, RespuestaMapquest.class);
         if (json == null) {
             throw new MapquestApiException();
         }

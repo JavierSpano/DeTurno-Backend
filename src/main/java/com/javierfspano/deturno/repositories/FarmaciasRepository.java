@@ -1,9 +1,9 @@
 package com.javierfspano.deturno.repositories;
 
-import com.javierfspano.deturno.entities.Farmacias;
+import com.javierfspano.deturno.entities.Farmacia;
 
 import java.util.List;
 
 public interface FarmaciasRepository {
-    List<Farmacias> get(List<String> ids);
+    List<Farmacia> get(List<String> ids);
 }

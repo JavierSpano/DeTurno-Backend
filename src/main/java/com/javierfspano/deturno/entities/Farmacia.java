@@ -1,6 +1,6 @@
 package com.javierfspano.deturno.entities;
 
-public class Farmacias {
+public class Farmacia {
 
     private String barrio;
     private String calle_altura;
