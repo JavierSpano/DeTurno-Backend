@@ -39,7 +39,6 @@ public class ProveedorDeCredenciales {
         MapquestCredentials credentials = new MapquestCredentials();
         credentials.setUrl(environment.getRequiredProperty("MAPQUEST_URL"));
         credentials.setKey(environment.getRequiredProperty("MAPQUEST_KEY"));
-        credentials.setDatabase(environment.getRequiredProperty("MAPQUEST_DATABASE"));
         return credentials;
     }
 }
