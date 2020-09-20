@@ -1,6 +1,7 @@
 package com.javierfspano.deturno;
 
 import com.javierfspano.deturno.entities.FarmaciasCercanas;
+import com.javierfspano.deturno.exceptions.CoordenadasDeFarmaciasRepositoryException;
 import com.javierfspano.deturno.exceptions.MapquestApiException;
 import com.javierfspano.deturno.repositories.CoordenadasDeFarmaciasRepository;
 import com.javierfspano.deturno.repositories.FarmaciasRepository;
@@ -39,7 +40,7 @@ class FarmaciaCercanasServiceTest {
 	}
 
 	@Test
-	public void testFarmaciasCercanasServiceUsaGeocoding() throws MapquestApiException {
+	public void testFarmaciasCercanasServiceUsaGeocoding() throws MapquestApiException, CoordenadasDeFarmaciasRepositoryException {
 		String direccion = "sarasa";
 		farmaciasCercanasService.getFarmaciasCercanas(direccion);
 		Mockito.verify(geoCodingService).getCoordenadas(direccion);
@@ -47,7 +48,7 @@ class FarmaciaCercanasServiceTest {
 
 
 	@Test
-	public void testFarmaciasCercanasServiceNoRetornaNulo() throws MapquestApiException {
+	public void testFarmaciasCercanasServiceNoRetornaNulo() throws MapquestApiException, CoordenadasDeFarmaciasRepositoryException {
 		String direccion = "sarasa";
 		FarmaciasCercanas farmaciasCercanas = farmaciasCercanasService.getFarmaciasCercanas(direccion);
 		assertNotNull(farmaciasCercanas);
