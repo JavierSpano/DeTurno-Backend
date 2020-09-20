@@ -2,6 +2,7 @@ package com.javierfspano.deturno.controllers;
 
 import com.google.firebase.auth.FirebaseAuthException;
 import com.javierfspano.deturno.entities.FarmaciasCercanas;
+import com.javierfspano.deturno.exceptions.CoordenadasDeFarmaciasRepositoryException;
 import com.javierfspano.deturno.exceptions.MapquestApiException;
 import com.javierfspano.deturno.services.FarmaciasCercanasService;
 import com.javierfspano.deturno.utils.FirebaseAuthUtil;
@@ -23,7 +24,7 @@ public class FarmaciasCercanasController {
 
     @GetMapping("/farmacias_cercanas")
     public ResponseEntity<?> getFarmaciasCercanas(@RequestParam String direccion, @RequestHeader(name = "IdToken") String idToken)
-            throws FirebaseAuthException, MapquestApiException {
+            throws FirebaseAuthException, MapquestApiException, CoordenadasDeFarmaciasRepositoryException {
         if (direccion.isEmpty()) {
             return ResponseEntity.badRequest().body("La direccion no debe estar vacia");
         }

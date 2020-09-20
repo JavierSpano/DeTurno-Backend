@@ -8,13 +8,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.javierfspano.deturno.entities.respuestamapquest.Coordenadas;
+import com.javierfspano.deturno.exceptions.CoordenadasDeFarmaciasRepositoryException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @Repository
 public class CoordenadasDeFarmaciasRepositoryImpl implements CoordenadasDeFarmaciasRepository {
@@ -23,7 +24,7 @@ public class CoordenadasDeFarmaciasRepositoryImpl implements CoordenadasDeFarmac
     private String firebaseDatabase;
 
     @Override
-    public List<String> getIdsCercanos(Coordenadas coordenadas) {
+    public List<String> getIdsCercanos(Coordenadas coordenadas) throws CoordenadasDeFarmaciasRepositoryException {
         CompletableFuture<List<String>> future = new CompletableFuture<>();
         List<String> ids = new ArrayList<>();
 
@@ -58,7 +59,10 @@ public class CoordenadasDeFarmaciasRepositoryImpl implements CoordenadasDeFarmac
             }
         });
 
-        //TODO "falta manejo de error"
-        return future.getNow(Collections.emptyList());
+        try {
+            return future.get();
+        } catch (InterruptedException | ExecutionException e) {
+            throw new CoordenadasDeFarmaciasRepositoryException(e.getMessage());
+        }
     }
 }

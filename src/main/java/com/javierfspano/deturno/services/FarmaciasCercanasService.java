@@ -3,6 +3,7 @@ package com.javierfspano.deturno.services;
 import com.javierfspano.deturno.entities.Farmacia;
 import com.javierfspano.deturno.entities.FarmaciasCercanas;
 import com.javierfspano.deturno.entities.respuestamapquest.Coordenadas;
+import com.javierfspano.deturno.exceptions.CoordenadasDeFarmaciasRepositoryException;
 import com.javierfspano.deturno.exceptions.MapquestApiException;
 import com.javierfspano.deturno.repositories.CoordenadasDeFarmaciasRepository;
 import com.javierfspano.deturno.repositories.FarmaciasRepository;
@@ -25,7 +26,7 @@ public class FarmaciasCercanasService {
         this.farmaciasRepository = farmaciasRepository;
     }
 
-    public FarmaciasCercanas getFarmaciasCercanas(String direccion) throws MapquestApiException {
+    public FarmaciasCercanas getFarmaciasCercanas(String direccion) throws MapquestApiException, CoordenadasDeFarmaciasRepositoryException {
         Coordenadas coordenadas = geoCodingService.getCoordenadas(direccion);
 
         List<String> ids = coordenadasDeFarmaciasRepository.getIdsCercanos(coordenadas);
