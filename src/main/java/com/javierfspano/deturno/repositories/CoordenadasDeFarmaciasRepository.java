@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface CoordenadasDeFarmaciasRepository {
 
-    List<String> getIdsCercanos(Coordenadas coordenadas) throws CoordenadasDeFarmaciasRepositoryException;
+    List<String> getIdsCercanos(Coordenadas coordenadas, Double radio) throws CoordenadasDeFarmaciasRepositoryException;
 }

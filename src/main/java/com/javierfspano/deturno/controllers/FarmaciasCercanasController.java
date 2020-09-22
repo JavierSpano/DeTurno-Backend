@@ -23,7 +23,7 @@ public class FarmaciasCercanasController {
     }
 
     @GetMapping("/farmacias_cercanas")
-    public ResponseEntity<?> getFarmaciasCercanas(@RequestParam String direccion, @RequestHeader(name = "IdToken") String idToken)
+    public ResponseEntity<?> getFarmaciasCercanas(@RequestParam String direccion,@RequestParam Double radio, @RequestHeader(name = "IdToken") String idToken)
             throws FirebaseAuthException, MapquestApiException, CoordenadasDeFarmaciasRepositoryException {
         if (direccion.isEmpty()) {
             return ResponseEntity.badRequest().body("La direccion no debe estar vacia");
@@ -31,7 +31,7 @@ public class FarmaciasCercanasController {
 
         if (FirebaseAuthUtil.isAuthenticated(idToken)) {
 
-            FarmaciasCercanas farmaciasCercanas = farmaciasCercanasService.getFarmaciasCercanas(direccion);
+            FarmaciasCercanas farmaciasCercanas = farmaciasCercanasService.getFarmaciasCercanas(direccion,radio);
 
             return ResponseEntity
                     .status(HttpStatus.OK)

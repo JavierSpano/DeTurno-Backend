@@ -26,10 +26,10 @@ public class FarmaciasCercanasService {
         this.farmaciasRepository = farmaciasRepository;
     }
 
-    public FarmaciasCercanas getFarmaciasCercanas(String direccion) throws MapquestApiException, CoordenadasDeFarmaciasRepositoryException {
+    public FarmaciasCercanas getFarmaciasCercanas(String direccion ,Double radio) throws MapquestApiException, CoordenadasDeFarmaciasRepositoryException {
         Coordenadas coordenadas = geoCodingService.getCoordenadas(direccion);
 
-        List<String> ids = coordenadasDeFarmaciasRepository.getIdsCercanos(coordenadas);
+        List<String> ids = coordenadasDeFarmaciasRepository.getIdsCercanos(coordenadas,radio);
 
         List<Farmacia> farmacias = farmaciasRepository.get(ids);
 

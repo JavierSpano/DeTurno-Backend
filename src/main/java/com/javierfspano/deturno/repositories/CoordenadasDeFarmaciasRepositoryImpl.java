@@ -24,7 +24,7 @@ public class CoordenadasDeFarmaciasRepositoryImpl implements CoordenadasDeFarmac
     private String firebaseDatabase;
 
     @Override
-    public List<String> getIdsCercanos(Coordenadas coordenadas) throws CoordenadasDeFarmaciasRepositoryException {
+    public List<String> getIdsCercanos(Coordenadas coordenadas,Double radio) throws CoordenadasDeFarmaciasRepositoryException {
         CompletableFuture<List<String>> future = new CompletableFuture<>();
         List<String> ids = new ArrayList<>();
 
@@ -32,7 +32,7 @@ public class CoordenadasDeFarmaciasRepositoryImpl implements CoordenadasDeFarmac
         GeoFire geoFire = new GeoFire(ref.child(firebaseDatabase));
 
         GeoLocation geoLocation = new GeoLocation(Double.parseDouble(coordenadas.getLat()), Double.parseDouble(coordenadas.getLng()));
-        GeoQuery geoQuery = geoFire.queryAtLocation(geoLocation, 0.6);
+        GeoQuery geoQuery = geoFire.queryAtLocation(geoLocation, radio);
 
         geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
             @Override
