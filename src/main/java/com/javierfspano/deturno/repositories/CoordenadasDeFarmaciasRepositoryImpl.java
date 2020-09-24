@@ -27,7 +27,7 @@ public class CoordenadasDeFarmaciasRepositoryImpl implements CoordenadasDeFarmac
     private double radioDefault;
 
     @Override
-    public List<String> getIdsCercanos(Coordenadas coordenadas,Double radio) throws CoordenadasDeFarmaciasRepositoryException {
+    public List<String> getIdsCercanos(Coordenadas coordenadas, Double radio) throws CoordenadasDeFarmaciasRepositoryException {
         CompletableFuture<List<String>> future = new CompletableFuture<>();
         List<String> ids = new ArrayList<>();
 

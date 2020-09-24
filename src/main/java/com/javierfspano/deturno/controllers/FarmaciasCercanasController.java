@@ -5,7 +5,7 @@ import com.javierfspano.deturno.entities.FarmaciasCercanas;
 import com.javierfspano.deturno.exceptions.CoordenadasDeFarmaciasRepositoryException;
 import com.javierfspano.deturno.exceptions.MapquestApiException;
 import com.javierfspano.deturno.services.FarmaciasCercanasService;
-import com.javierfspano.deturno.utils.FirebaseAuthUtil;
+import com.javierfspano.deturno.services.FirebaseAuthService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +17,11 @@ public class FarmaciasCercanasController {
 
     private final FarmaciasCercanasService farmaciasCercanasService;
 
-    public FarmaciasCercanasController(FarmaciasCercanasService farmaciasCercanasService) {
+    private final FirebaseAuthService firebaseAuthService;
+
+    public FarmaciasCercanasController(FarmaciasCercanasService farmaciasCercanasService, FirebaseAuthService firebaseAuthService) {
         this.farmaciasCercanasService = farmaciasCercanasService;
+        this.firebaseAuthService = firebaseAuthService;
     }
 
     @GetMapping("/farmacias_cercanas")
@@ -28,9 +31,9 @@ public class FarmaciasCercanasController {
             return ResponseEntity.badRequest().body("La direccion no debe estar vacia");
         }
 
-        if (FirebaseAuthUtil.isAuthenticated(idToken)) {
+        if (firebaseAuthService.isAuthenticated(idToken)) {
 
-            FarmaciasCercanas farmaciasCercanas = farmaciasCercanasService.getFarmaciasCercanas(direccion,radio);
+            FarmaciasCercanas farmaciasCercanas = farmaciasCercanasService.getFarmaciasCercanas(direccion, radio);
 
             return ResponseEntity
                     .status(HttpStatus.OK)
