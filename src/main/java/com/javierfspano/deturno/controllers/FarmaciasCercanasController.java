@@ -8,10 +8,9 @@ import com.javierfspano.deturno.services.FarmaciasCercanasService;
 import com.javierfspano.deturno.utils.FirebaseAuthUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Nullable;
 
 @RestController
 public class FarmaciasCercanasController {
@@ -23,7 +22,7 @@ public class FarmaciasCercanasController {
     }
 
     @GetMapping("/farmacias_cercanas")
-    public ResponseEntity<?> getFarmaciasCercanas(@RequestParam String direccion,@RequestParam Double radio, @RequestHeader(name = "IdToken") String idToken)
+    public ResponseEntity<?> getFarmaciasCercanas(@RequestParam String direccion, @RequestParam @Nullable Double radio, @RequestHeader(name = "IdToken") String idToken)
             throws FirebaseAuthException, MapquestApiException, CoordenadasDeFarmaciasRepositoryException {
         if (direccion.isEmpty()) {
             return ResponseEntity.badRequest().body("La direccion no debe estar vacia");
@@ -39,6 +38,16 @@ public class FarmaciasCercanasController {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+    }
+
+    @ExceptionHandler({Exception.class, MapquestApiException.class, CoordenadasDeFarmaciasRepositoryException.class})
+    public ResponseEntity<?> excepcionGenerica(Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+
+    @ExceptionHandler(FirebaseAuthException.class)
+    public ResponseEntity<?> excepcionDeAutenticacionDeFirebase(FirebaseAuthException e) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
 }
