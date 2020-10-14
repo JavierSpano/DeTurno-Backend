@@ -22,7 +22,7 @@ public class MapquestGeoCodingServiceImpl implements GeoCodingService {
         MapquestCredentials credentials = proveedorDeCredenciales.obtenerCredencialesDeMapquest();
 
         RestTemplate restTemplate = new RestTemplate();
-        String url = credentials.getUrl() + "?key=" + credentials.getKey() + "&location=" + direccion;
+        String url = credentials.getUrl() + "?key=" + credentials.getKey() + "&location=" + direccion + " CABA";
         RespuestaMapquest json = restTemplate.getForObject(url, RespuestaMapquest.class);
         if (json == null) {
             throw new MapquestApiException();
