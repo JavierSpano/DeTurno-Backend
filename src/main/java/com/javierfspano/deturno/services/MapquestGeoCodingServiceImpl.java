@@ -5,11 +5,17 @@ import com.javierfspano.deturno.config.ProveedorDeCredenciales;
 import com.javierfspano.deturno.entities.respuestamapquest.Coordenadas;
 import com.javierfspano.deturno.entities.respuestamapquest.RespuestaMapquest;
 import com.javierfspano.deturno.exceptions.MapquestApiException;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
 public class MapquestGeoCodingServiceImpl implements GeoCodingService {
+	
+	
+    @Value("${deturno.ciudad}")
+    private String referenciaCiudad;
 
     private final ProveedorDeCredenciales proveedorDeCredenciales;
 
@@ -22,7 +28,7 @@ public class MapquestGeoCodingServiceImpl implements GeoCodingService {
         MapquestCredentials credentials = proveedorDeCredenciales.obtenerCredencialesDeMapquest();
 
         RestTemplate restTemplate = new RestTemplate();
-        String url = credentials.getUrl() + "?key=" + credentials.getKey() + "&location=" + direccion + " CABA";
+        String url = credentials.getUrl() + "?key=" + credentials.getKey() + "&location=" + direccion + " " + referenciaCiudad;
         RespuestaMapquest json = restTemplate.getForObject(url, RespuestaMapquest.class);
         if (json == null) {
             throw new MapquestApiException();
