@@ -26,9 +26,13 @@ public class FarmaciasCercanasService {
         this.farmaciasRepository = farmaciasRepository;
     }
 
-    public FarmaciasCercanas getFarmaciasCercanas(String direccion, Double radio) throws MapquestApiException, CoordenadasDeFarmaciasRepositoryException {
+    public FarmaciasCercanas getFarmaciasCercanasPorTexo(String direccion, Double radio) throws MapquestApiException, CoordenadasDeFarmaciasRepositoryException {
         Coordenadas coordenadas = geoCodingService.getCoordenadas(direccion);
 
+        return getFarmaciasCercanasPorCoordenadas(coordenadas, radio);
+    }
+
+    public FarmaciasCercanas getFarmaciasCercanasPorCoordenadas(Coordenadas coordenadas, Double radio) throws CoordenadasDeFarmaciasRepositoryException {
         List<String> ids = coordenadasDeFarmaciasRepository.getIdsCercanos(coordenadas, radio);
 
         List<Farmacia> farmacias = farmaciasRepository.get(ids);

@@ -2,6 +2,7 @@ package com.javierfspano.deturno.controllers;
 
 import com.google.firebase.auth.FirebaseAuthException;
 import com.javierfspano.deturno.entities.FarmaciasCercanas;
+import com.javierfspano.deturno.entities.respuestamapquest.Coordenadas;
 import com.javierfspano.deturno.exceptions.CoordenadasDeFarmaciasRepositoryException;
 import com.javierfspano.deturno.exceptions.MapquestApiException;
 import com.javierfspano.deturno.services.FarmaciasCercanasService;
@@ -25,7 +26,7 @@ public class FarmaciasCercanasController {
     }
 
     @GetMapping("/farmacias_cercanas")
-    public ResponseEntity<?> getFarmaciasCercanas(@RequestParam String direccion, @RequestParam @Nullable Double radio, @RequestHeader(name = "IdToken") String idToken)
+    public ResponseEntity<?> farmaciasCercanasPorTexto(@RequestParam String direccion, @RequestParam @Nullable Double radio, @RequestHeader(name = "IdToken") String idToken)
             throws FirebaseAuthException, MapquestApiException, CoordenadasDeFarmaciasRepositoryException {
         if (direccion.isEmpty()) {
             return ResponseEntity.badRequest().body("La direccion no debe estar vacia");
@@ -33,7 +34,23 @@ public class FarmaciasCercanasController {
 
         if (firebaseAuthService.isAuthenticated(idToken)) {
 
-            FarmaciasCercanas farmaciasCercanas = farmaciasCercanasService.getFarmaciasCercanas(direccion, radio);
+            FarmaciasCercanas farmaciasCercanas = farmaciasCercanasService.getFarmaciasCercanasPorTexo(direccion, radio);
+
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(farmaciasCercanas);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }
+
+    @GetMapping("/farmacias_cercanas-coordenadas")
+    public ResponseEntity<?> farmaciasCercanasporCoordenadas(@RequestParam Float lat, @RequestParam Float lng, @RequestParam @Nullable Double radio, @RequestHeader(name = "IdToken") String idToken)
+            throws FirebaseAuthException, CoordenadasDeFarmaciasRepositoryException {
+
+        if (firebaseAuthService.isAuthenticated(idToken)) {
+
+            FarmaciasCercanas farmaciasCercanas = farmaciasCercanasService.getFarmaciasCercanasPorCoordenadas(new Coordenadas(lat.toString(), lng.toString()), radio);
 
             return ResponseEntity
                     .status(HttpStatus.OK)

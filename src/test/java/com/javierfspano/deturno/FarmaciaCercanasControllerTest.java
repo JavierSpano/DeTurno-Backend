@@ -41,7 +41,7 @@ class FarmaciaCercanasControllerTest {
 
         Mockito.when(firebaseAuthService.isAuthenticated(token)).thenReturn(false);
 
-        ResponseEntity<?> responseEntity = farmaciasCercanasController.getFarmaciasCercanas(direccion, 0.6, token);
+        ResponseEntity<?> responseEntity = farmaciasCercanasController.farmaciasCercanasPorTexto(direccion, 0.6, token);
 
         assertEquals(responseEntity.getStatusCode(), HttpStatus.UNAUTHORIZED);
     }
@@ -52,7 +52,7 @@ class FarmaciaCercanasControllerTest {
 
         Mockito.when(firebaseAuthService.isAuthenticated(token)).thenReturn(true);
 
-        ResponseEntity<?> responseEntity = farmaciasCercanasController.getFarmaciasCercanas(direccion, 0.6, token);
+        ResponseEntity<?> responseEntity = farmaciasCercanasController.farmaciasCercanasPorTexto(direccion, 0.6, token);
 
         assertEquals(responseEntity.getStatusCode(), HttpStatus.OK);
     }
@@ -64,7 +64,7 @@ class FarmaciaCercanasControllerTest {
 
         Mockito.when(firebaseAuthService.isAuthenticated(token)).thenReturn(true);
 
-        ResponseEntity<?> responseEntity = farmaciasCercanasController.getFarmaciasCercanas(direccion, 0.6, token);
+        ResponseEntity<?> responseEntity = farmaciasCercanasController.farmaciasCercanasPorTexto(direccion, 0.6, token);
 
         assertEquals(responseEntity.getStatusCode(), HttpStatus.BAD_REQUEST);
     }

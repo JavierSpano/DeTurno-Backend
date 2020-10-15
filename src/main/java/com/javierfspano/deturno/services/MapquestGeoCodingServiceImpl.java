@@ -5,19 +5,17 @@ import com.javierfspano.deturno.config.ProveedorDeCredenciales;
 import com.javierfspano.deturno.entities.respuestamapquest.Coordenadas;
 import com.javierfspano.deturno.entities.respuestamapquest.RespuestaMapquest;
 import com.javierfspano.deturno.exceptions.MapquestApiException;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
 public class MapquestGeoCodingServiceImpl implements GeoCodingService {
-	
-	
-    @Value("${deturno.ciudad}")
-    private String referenciaCiudad;
+
 
     private final ProveedorDeCredenciales proveedorDeCredenciales;
+    @Value("${deturno.ciudad}")
+    private String referenciaCiudad;
 
     public MapquestGeoCodingServiceImpl(ProveedorDeCredenciales proveedorDeCredenciales) {
         this.proveedorDeCredenciales = proveedorDeCredenciales;

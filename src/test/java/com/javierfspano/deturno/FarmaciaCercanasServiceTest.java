@@ -42,7 +42,7 @@ class FarmaciaCercanasServiceTest {
 	@Test
 	public void testFarmaciasCercanasServiceUsaGeocoding() throws MapquestApiException, CoordenadasDeFarmaciasRepositoryException {
 		String direccion = "sarasa";
-		farmaciasCercanasService.getFarmaciasCercanas(direccion, 0.6);
+		farmaciasCercanasService.getFarmaciasCercanasPorTexo(direccion, 0.6);
 		Mockito.verify(geoCodingService).getCoordenadas(direccion);
 	}
 
@@ -50,7 +50,7 @@ class FarmaciaCercanasServiceTest {
 	@Test
 	public void testFarmaciasCercanasServiceNoRetornaNulo() throws MapquestApiException, CoordenadasDeFarmaciasRepositoryException {
 		String direccion = "sarasa";
-		FarmaciasCercanas farmaciasCercanas = farmaciasCercanasService.getFarmaciasCercanas(direccion,0.6);
+		FarmaciasCercanas farmaciasCercanas = farmaciasCercanasService.getFarmaciasCercanasPorTexo(direccion,0.6);
 		assertNotNull(farmaciasCercanas);
 	}
 

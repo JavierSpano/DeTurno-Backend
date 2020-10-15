@@ -7,6 +7,14 @@ public class Coordenadas {
 
     private String lng;
 
+    public Coordenadas() {
+    }
+
+    public Coordenadas(String lat, String lng) {
+        this.lat = lat;
+        this.lng = lng;
+    }
+
     public String getLat() {
         return lat;
     }
