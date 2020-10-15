@@ -19,4 +19,4 @@ jobs:
         java-version: 1.8
 
     - name: Build project with Maven
-      run: mvn integration-test
+      run: mvn test
