@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DeTurnoApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DeTurnoApplication.class, argssss);
+        SpringApplication.run(DeTurnoApplication.class, args);
     }
 
 }
