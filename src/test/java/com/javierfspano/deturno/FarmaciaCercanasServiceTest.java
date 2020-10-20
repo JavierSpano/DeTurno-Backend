@@ -1,6 +1,7 @@
 package com.javierfspano.deturno;
 
 import com.javierfspano.deturno.entities.FarmaciasCercanas;
+import com.javierfspano.deturno.entities.respuestamapquest.Coordenadas;
 import com.javierfspano.deturno.exceptions.CoordenadasDeFarmaciasRepositoryException;
 import com.javierfspano.deturno.exceptions.MapquestApiException;
 import com.javierfspano.deturno.repositories.CoordenadasDeFarmaciasRepository;
@@ -51,6 +52,12 @@ class FarmaciaCercanasServiceTest {
 	public void testFarmaciasCercanasServiceNoRetornaNulo() throws MapquestApiException, CoordenadasDeFarmaciasRepositoryException {
 		String direccion = "sarasa";
 		FarmaciasCercanas farmaciasCercanas = farmaciasCercanasService.getFarmaciasCercanasPorTexo(direccion,0.6);
+		assertNotNull(farmaciasCercanas);
+	}
+	
+	@Test
+	public void testFarmaciasCercanasServiceUsaGeocodingCoord() throws MapquestApiException, CoordenadasDeFarmaciasRepositoryException {
+		FarmaciasCercanas farmaciasCercanas = farmaciasCercanasService.getFarmaciasCercanasPorCoordenadas(new Coordenadas("-45.456453456465", "-35.4564564"), 0.6);
 		assertNotNull(farmaciasCercanas);
 	}
 
