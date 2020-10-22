@@ -20,3 +20,6 @@ jobs:
 
     - name: Build project with Maven
       run: mvn clean install
+    - name: Build Test
+      run: mvn test
+  
