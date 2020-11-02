@@ -29,7 +29,7 @@ public class FarmaciasCercanasController {
     public ResponseEntity<?> farmaciasCercanasPorTexto(@RequestParam String direccion, @RequestParam @Nullable Double radio, @RequestHeader(name = "IdToken") String idToken)
             throws FirebaseAuthException, MapquestApiException, CoordenadasDeFarmaciasRepositoryException {
         if (direccion.isEmpty()) {
-            return ResponseEntity.badRequest().body("La direccion no debe estar vacia");
+            return ResponseEntity.badRequest().build();
         }
 
         if (firebaseAuthService.isAuthenticated(idToken)) {
