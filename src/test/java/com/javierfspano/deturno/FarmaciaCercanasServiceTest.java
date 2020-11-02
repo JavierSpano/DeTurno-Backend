@@ -1,5 +1,6 @@
 package com.javierfspano.deturno;
 
+import com.javierfspano.deturno.entities.Farmacia;
 import com.javierfspano.deturno.entities.FarmaciasCercanas;
 import com.javierfspano.deturno.entities.respuestamapquest.Coordenadas;
 import com.javierfspano.deturno.exceptions.CoordenadasDeFarmaciasRepositoryException;
@@ -18,6 +19,10 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.event.annotation.BeforeTestExecution;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
@@ -43,21 +48,42 @@ class FarmaciaCercanasServiceTest {
 	@Test
 	public void testFarmaciasCercanasServiceUsaGeocoding() throws MapquestApiException, CoordenadasDeFarmaciasRepositoryException {
 		String direccion = "sarasa";
-		farmaciasCercanasService.getFarmaciasCercanasPorTexo(direccion, 0.6);
-		Mockito.verify(geoCodingService).getCoordenadas(direccion);
+		Double radio = 0.6;
+
+		Coordenadas expectedCoordenadas = new Coordenadas();
+		List<String> expectedIdsCercanos = new ArrayList<>();
+		expectedIdsCercanos.add("fafafa");
+		List<Farmacia> expectedFarmacias = new ArrayList<>();
+		Farmacia expectedFarmacia = new Farmacia();
+		expectedFarmacia.setNombre("Farmacity");
+		expectedFarmacias.add(expectedFarmacia);
+
+		Mockito.when(geoCodingService.getCoordenadas(direccion)).thenReturn(expectedCoordenadas);
+		Mockito.when(coordenadasDeFarmaciasRepository.getIdsCercanos(expectedCoordenadas, radio)).thenReturn(expectedIdsCercanos);
+		Mockito.when(farmaciasRepository.get(expectedIdsCercanos)).thenReturn(expectedFarmacias);
+
+		FarmaciasCercanas farmaciasCercanas = farmaciasCercanasService.getFarmaciasCercanasPorTexo(direccion, radio);
+
+		assertEquals(expectedCoordenadas, farmaciasCercanas.getCentroDelMapa());
+		assertEquals(expectedFarmacias, farmaciasCercanas.getFarmacias());
 	}
 
 
 	@Test
 	public void testFarmaciasCercanasServiceNoRetornaNulo() throws MapquestApiException, CoordenadasDeFarmaciasRepositoryException {
 		String direccion = "sarasa";
-		FarmaciasCercanas farmaciasCercanas = farmaciasCercanasService.getFarmaciasCercanasPorTexo(direccion,0.6);
+		Double radio = 0.6;
+
+		FarmaciasCercanas farmaciasCercanas = farmaciasCercanasService.getFarmaciasCercanasPorTexo(direccion,radio);
 		assertNotNull(farmaciasCercanas);
+
 	}
 	
 	@Test
 	public void testFarmaciasCercanasServiceUsaGeocodingCoord() throws MapquestApiException, CoordenadasDeFarmaciasRepositoryException {
-		FarmaciasCercanas farmaciasCercanas = farmaciasCercanasService.getFarmaciasCercanasPorCoordenadas(new Coordenadas("-45.456453456465", "-35.4564564"), 0.6);
+		Double radio = 0.6;
+
+		FarmaciasCercanas farmaciasCercanas = farmaciasCercanasService.getFarmaciasCercanasPorCoordenadas(new Coordenadas("-45.456453456465", "-35.4564564"), radio);
 		assertNotNull(farmaciasCercanas);
 		
 	}

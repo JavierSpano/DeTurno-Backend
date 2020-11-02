@@ -7,11 +7,8 @@ import com.javierfspano.deturno.entities.FarmaciasCercanas;
 import com.javierfspano.deturno.entities.respuestamapquest.Coordenadas;
 import com.javierfspano.deturno.exceptions.CoordenadasDeFarmaciasRepositoryException;
 import com.javierfspano.deturno.exceptions.MapquestApiException;
-import com.javierfspano.deturno.repositories.CoordenadasDeFarmaciasRepository;
-import com.javierfspano.deturno.repositories.FarmaciasRepository;
 import com.javierfspano.deturno.services.FarmaciasCercanasService;
 import com.javierfspano.deturno.services.FirebaseAuthService;
-import com.javierfspano.deturno.services.GeoCodingService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -51,11 +48,11 @@ class FarmaciaCercanasControllerTest {
         Double radio = 0.6;
 
         List<Farmacia> farmacias = new ArrayList<>();
-        Coordenadas centroDelMapa =  new Coordenadas();
-        FarmaciasCercanas expectedFarmaciasCercanas = new FarmaciasCercanas(centroDelMapa,farmacias);
+        Coordenadas centroDelMapa = new Coordenadas();
+        FarmaciasCercanas expectedFarmaciasCercanas = new FarmaciasCercanas(centroDelMapa, farmacias);
 
         Mockito.when(firebaseAuthService.isAuthenticated(token)).thenReturn(true);
-        Mockito.when(farmaciasCercanasService.getFarmaciasCercanasPorTexo(direccion,radio)).thenReturn(expectedFarmaciasCercanas);
+        Mockito.when(farmaciasCercanasService.getFarmaciasCercanasPorTexo(direccion, radio)).thenReturn(expectedFarmaciasCercanas);
 
         ResponseEntity<?> responseEntity = farmaciasCercanasController.farmaciasCercanasPorTexto(direccion, radio, token);
         FarmaciasCercanas responseBody = (FarmaciasCercanas) responseEntity.getBody();
