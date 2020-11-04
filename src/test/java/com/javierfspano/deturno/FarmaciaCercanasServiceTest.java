@@ -82,8 +82,10 @@ class FarmaciaCercanasServiceTest {
 	@Test
 	public void testFarmaciasCercanasServiceUsaGeocodingCoord() throws MapquestApiException, CoordenadasDeFarmaciasRepositoryException {
 		Double radio = 0.6;
+		String lat = "-45.456453456465";
+		String lng = "-35.4564564";
 
-		FarmaciasCercanas farmaciasCercanas = farmaciasCercanasService.getFarmaciasCercanasPorCoordenadas(new Coordenadas("-45.456453456465", "-35.4564564"), radio);
+		FarmaciasCercanas farmaciasCercanas = farmaciasCercanasService.getFarmaciasCercanasPorCoordenadas(new Coordenadas(lat,lng ), radio);
 		assertNotNull(farmaciasCercanas);
 		
 	}
