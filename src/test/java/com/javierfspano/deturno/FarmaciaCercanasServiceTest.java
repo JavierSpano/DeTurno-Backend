@@ -85,9 +85,22 @@ class FarmaciaCercanasServiceTest {
 		String lat = "-45.456453456465";
 		String lng = "-35.4564564";
 
-		FarmaciasCercanas farmaciasCercanas = farmaciasCercanasService.getFarmaciasCercanasPorCoordenadas(new Coordenadas(lat,lng ), radio);
-		assertNotNull(farmaciasCercanas);
 		
+		Coordenadas expectedCoordenadas = new Coordenadas(lat,lng);
+		List<String> expectedIdsCercanos = new ArrayList<>();
+		expectedIdsCercanos.add("fafafa");
+		List<Farmacia> expectedFarmacias = new ArrayList<>();
+		Farmacia expectedFarmacia = new Farmacia();
+		expectedFarmacia.setNombre("Farmacity");
+		expectedFarmacias.add(expectedFarmacia);
+
+		Mockito.when(coordenadasDeFarmaciasRepository.getIdsCercanos(expectedCoordenadas, radio)).thenReturn(expectedIdsCercanos);
+		Mockito.when(farmaciasRepository.get(expectedIdsCercanos)).thenReturn(expectedFarmacias);
+
+		FarmaciasCercanas farmaciasCercanas = farmaciasCercanasService.getFarmaciasCercanasPorCoordenadas(expectedCoordenadas, radio);
+
+		assertEquals(expectedCoordenadas, farmaciasCercanas.getCentroDelMapa());
+		assertEquals(expectedFarmacias, farmaciasCercanas.getFarmacias());	
 	}
 
 }
